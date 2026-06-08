@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BASE RESET & ROOT VARIABLES
+   ============================================ */
+:root {
+  --color-brand: #10b981;
+  --color-brand-light: #34d399;
+  --color-brand-dark: #059669;
+  --color-dark: #0f172a;
+  --color-dark-card: #1e293b;
+  --color-dark-border: rgba(255, 255, 255, 0.06);
+
+  --gradient-brand: linear-gradient(135deg, #10b981, #34d399, #06b6d4);
+  --gradient-hero-bg: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent);
+  --gradient-glow: radial-gradient(circle at center, rgba(16, 185, 129, 0.15), transparent 70%);
+
+  --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+
+  --radius-card: 1.25rem;
+  --radius-btn: 0.75rem;
+
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   GLOBAL BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+  color: #0f172a;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Dark mode body */
+.dark body {
+  background-color: #0f172a;
+  color: #f1f5f9;
+}
+
+/* ============================================
+   SELECTION COLOR
+   ============================================ */
+::selection {
+  background-color: rgba(16, 185, 129, 0.25);
+  color: #047857;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 185, 129, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.7);
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-hero {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  .gradient-text-static {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animated gradient border */
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(var(--color-dark-card), var(--color-dark-card)) padding-box,
+                var(--gradient-brand) border-box;
+    border: 1px solid transparent;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+  }
+
+  /* Scientific grid */
+  .scientific-grid {
+    background-image:
+      linear-gradient(rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Dot grid */
+  .dot-grid {
+    background-image: radial-gradient(circle, rgba(16, 185, 129, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  /* Glow ring */
+  .glow-ring {
+    box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.3),
+                0 0 20px rgba(16, 185, 129, 0.15),
+                0 0 40px rgba(16, 185, 129, 0.08);
+  }
+
+  /* Focus ring override for brand color */
+  .focus-brand:focus-visible {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================
+   COMPONENT LAYER
+   ============================================ */
+@layer components {
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl
+           bg-brand-500 text-white font-semibold text-sm
+           transition-all duration-300
+           hover:bg-brand-400 hover:shadow-glow hover:-translate-y-0.5
+           active:translate-y-0 active:shadow-none
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl
+           border border-slate-200 text-slate-700 font-semibold text-sm
+           bg-white transition-all duration-300
+           hover:border-brand-400 hover:text-brand-500 hover:bg-brand-50 hover:-translate-y-0.5
+           active:translate-y-0
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+  }
+
+  /* Section wrapper */
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  /* Container */
+  .container-max {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section label */
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full
+           bg-brand-50 border border-brand-100
+           text-brand-600 text-xs font-semibold tracking-widest uppercase;
+  }
+
+  /* Section eyebrow dark */
+  .section-eyebrow-dark {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full
+           bg-brand-900/30 border border-brand-500/20
+           text-brand-400 text-xs font-semibold tracking-widest uppercase;
+  }
+
+  /* Card base */
+  .card-base {
+    @apply rounded-2xl p-6 border border-slate-100 bg-white shadow-sm
+           transition-all duration-300
+           hover:shadow-md hover:-translate-y-1;
+  }
+
+  /* Stat number */
+  .stat-number {
+    @apply text-5xl md:text-6xl font-bold tracking-tight gradient-text-static;
+  }
+}
+
+/* ============================================
+   ANIMATIONS (for CSS-only interactions)
+   ============================================ */
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes drawPath {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   HERO SECTION SPECIFICS
+   ============================================ */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.hero-orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18), transparent 70%);
+  top: -200px;
+  right: -100px;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12), transparent 70%);
+  bottom: 100px;
+  left: -100px;
+  animation: float 10s ease-in-out 2s infinite;
+}
+
+.hero-orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.1), transparent 70%);
+  top: 40%;
+  left: 40%;
+  animation: float 7s ease-in-out 1s infinite;
+}
+
+/* ============================================
+   DASHBOARD CARD ANIMATIONS
+   ============================================ */
+.dashboard-pulse {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ============================================
+   HEALTH SCORE RING SVG
+   ============================================ */
+.health-ring-track {
+  stroke: rgba(16, 185, 129, 0.15);
+  fill: none;
+  stroke-linecap: round;
+}
+
+.health-ring-progress {
+  stroke: url(#ringGradient);
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1.5s var(--transition-smooth);
+}
+
+/* ============================================
+   ROADMAP PATH
+   ============================================ */
+.roadmap-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.roadmap-path.animated {
+  animation: drawPath 2s ease-out forwards;
+}
+
+/* ============================================
+   COMPARISON TABLE
+   ============================================ */
+.comparison-row:nth-child(even) {
+  background: rgba(241, 245, 249, 0.5);
+}
+
+.comparison-row-dark:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+.input-field {
+  @apply w-full px-4 py-3.5 rounded-xl border border-slate-200 bg-white
+         text-slate-900 placeholder:text-slate-400 text-sm
+         transition-all duration-200
+         focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent
+         focus:shadow-glow-sm;
+}
+
+.input-field-error {
+  @apply border-red-400 focus:ring-red-400;
+}
+
+/* ============================================
+   RESPONSIVE TWEAKS
+   ============================================ */
+@media (max-width: 640px) {
+  .hero-orb {
+    transform: scale(0.6);
+  }
+}
+
+/* ============================================
+   REDUCE MOTION SUPPORT
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

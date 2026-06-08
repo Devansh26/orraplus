@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://orraplus.com/sitemap.xml
+
+# Prevent indexing of non-public paths
+Disallow: /api/

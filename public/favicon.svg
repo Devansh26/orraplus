@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="icon" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#d1fae5" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <!-- ORRA+ arrow/health icon -->
+  <path d="M32 12L42 30H38L44 52L20 52L26 30H22L32 12Z"
+        fill="url(#icon)"
+        opacity="0.95"/>
+  <!-- Plus mark -->
+  <rect x="42" y="16" width="10" height="2.5" rx="1.25" fill="white" opacity="0.9"/>
+  <rect x="45.75" y="12.25" width="2.5" height="10" rx="1.25" fill="white" opacity="0.9"/>
+</svg>
